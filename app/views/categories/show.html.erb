@@ -1,0 +1,27 @@
+<% provide(:title, 'All word') %>
+<% if current_user.admin? %>
+  <%= link_to "new word", new_category_word_path(@category, @word) %>
+<% end %>
+  <div class="col-md-8">
+    <% if @category.words.any? %>
+    <h2>All words(<%= @category.words.count %>)</h2>
+
+      <ul class="word">
+        <% @words.each do |word| %>
+        <li id="word-<%= word.id %>">
+          <span class="content"><%= word.content %></span>
+          <% if current_user.admin? %>
+            <%= link_to "Edit", edit_category_word_path(word.category, word) %>
+            <%= link_to "Delete", [word.category ,word], method: :delete,
+                                      data: { confirm: "You sure?" } %>
+          <% end %>
+
+        </li>
+        <% end %>
+      </ul>
+
+    <% end %>
+  </div>
+
+
+

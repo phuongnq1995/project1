@@ -1,0 +1,11 @@
+<% provide(:title, 'Edit word') %>
+<% if current_user.admin? %>
+  <%= form_for ([@word.category, @word]) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+      <%= f.label :content %>
+      <%= f.text_field :content, class: 'form-control' %>
+    </div>
+    <%= f.submit "Update", class: "btn btn-primary" %>
+  <% end %>
+<% end %>

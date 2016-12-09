@@ -1,0 +1,28 @@
+<% provide(:title, 'All Category') %>
+<h1>All category</h1>
+<% if current_user.admin? %>
+  <%= form_for(@category) do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+      <%= f.text_area :discription, placeholder: "Compose new micropost..." %>
+    </div>
+    <%= f.submit "Create", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
+<%= will_paginate %>
+
+<ul class="users">
+  <% @categories.each do |category| %>
+    <li>
+      <%= link_to category.name, category %>
+      <%= link_to "Edit", edit_category_path(category) %>
+      <%= link_to "Delete", category, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+      <%= category.discription %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>
