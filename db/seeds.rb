@@ -1,7 +1,7 @@
-User.create!(name:  "Example User",
-             email: "new@gmail.org",
-             password:              "foobar",
-             password_confirmation: "foobar",
+User.create!(name:  "Admin",
+             email: "admin@gmail.com",
+             password:              "123456",
+             password_confirmation: "123456",
              role: 1)
 
 19.times do |n|

@@ -1,0 +1,21 @@
+    <%= form_tag @answers do %>
+      <% @answer.each do |answer| %>
+        <%= fields_for 'answers[]', answer do |p| %>
+
+          <div class="field">
+            <%= p.label :content %><br>
+            <%= p.text_field :content %>
+          </div>
+          <div class="field">
+            <%= p.label :is_correct %><br>
+            <%= p.select :is_correct, [['True', true], ['False', false]] %>
+          </div>
+
+        <% end %>
+      <% end %>
+
+    <% end %>
+
+
+
+<% end %>

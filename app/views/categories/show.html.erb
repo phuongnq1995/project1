@@ -9,7 +9,8 @@
       <ul class="word">
         <% @words.each do |word| %>
         <li id="word-<%= word.id %>">
-          <span class="content"><%= word.content %></span>
+
+          <%= link_to word.content , category_word_path(word.category, word) %>
           <% if current_user.admin? %>
             <%= link_to "Edit", edit_category_word_path(word.category, word) %>
             <%= link_to "Delete", [word.category ,word], method: :delete,

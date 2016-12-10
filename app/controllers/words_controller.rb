@@ -3,8 +3,12 @@ class WordsController < ApplicationController
   def new
     @category = Category.find(params[:category_id])
     @word = @category.words.build
+    4.times { @word.answers.build}
   end
-
+  def show
+    @category = Category.find(params[:category_id])
+    @word = @category.words.find(params[:id])
+  end
   def create
     @category = Category.find(params[:category_id])
     @word = @category.words.build(word_params)
@@ -39,10 +43,11 @@ class WordsController < ApplicationController
   private
 
   def word_params
-    params.require(:word).permit(:content)
+    params.require(:word).permit(:content, answers_attributes: [:id, :content, :is_correct])
   end
     # Confirms an admin user.
   def admin_user
     redirect_to(root_url) unless current_user.admin?
   end
+
 end
