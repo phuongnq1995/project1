@@ -51,7 +51,7 @@ class LessonsController < ApplicationController
   end
 
   def load_questions
-    @questions = @lesson.questions.paginate(page: params[:page])
+    @questions = @lesson.questions
   end
 
   def questions_params

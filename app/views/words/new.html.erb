@@ -8,7 +8,6 @@
     </div>
     <%= f.fields_for :answers do |builder| %>
       <%= render 'answers_fields', :f => builder %>
-      <%= will_paginate @word.answers %>
     <% end %>
   <%= f.submit "Create", class: "btn btn-primary" %>
   <% end %>

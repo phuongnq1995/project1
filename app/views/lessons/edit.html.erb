@@ -2,7 +2,6 @@
 <h2><%= @category.name %></h2>
 <%= form_for ([@category, @lesson]) do |f| %>
   <% if @questions.any? %>
-    <%= will_paginate @questions %>
     <%= f.fields_for :questions, @questions do |builder| %>
       <div id="questions">
         <%= render 'questions_fields', :f => builder %>
