@@ -7,7 +7,6 @@ class Word < ActiveRecord::Base
   accepts_nested_attributes_for :answers, :allow_destroy => true
   default_scope -> {order(content: :desc)}
   validates :content, presence: true, length: {maximum: 50}
-  def self.get_questions(category)
-    word = Word.where("category_id = ?", category)
-  end
+
+
 end
