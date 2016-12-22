@@ -4,11 +4,11 @@ class CreateQuestions < ActiveRecord::Migration
       t.references :word, index: true, foreign_key: true
       t.references :lesson, index: true, foreign_key: true
       t.references :answer, index: true, foreign_key: true
-      t.boolean :is_correct, default: false
+      t.references :user, index: true, foreign_key: true
 
       t.timestamps null: false
     end
-    add_index :questions, :is_correct
+
     add_index :questions, [:lesson_id, :word_id]
   end
 end

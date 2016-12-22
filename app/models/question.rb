@@ -1,8 +1,13 @@
 class Question < ActiveRecord::Base
+  self.per_page = 1
   belongs_to :word
   belongs_to :lesson
+  belongs_to :user
   belongs_to :answer
-  validates :word_id, presence: true
-  validates :lesson_id, presence: true
-  validates :answer_id, presence: true
+
+  scope :correct_anwsers, -> do
+    joins(:answer).where("answers.is_correct = ?", true)
+  end
+
+
 end

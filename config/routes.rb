@@ -14,6 +14,10 @@ Rails.application.routes.draw do
     resources :words do
       resources :answer
     end
+    resources :lessons
   end
   resources :relationships,       only: [:create, :destroy]
+  resources :questions do
+    resources :user, only: :index
+  end
 end

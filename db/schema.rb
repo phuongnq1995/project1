@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202091321) do
+ActiveRecord::Schema.define(version: 20161211174822) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "action"
@@ -46,10 +46,12 @@ ActiveRecord::Schema.define(version: 20161202091321) do
   create_table "lessons", force: :cascade do |t|
     t.string   "result"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "category_id"
   end
 
+  add_index "lessons", ["category_id"], name: "index_lessons_on_category_id"
   add_index "lessons", ["user_id", "created_at"], name: "index_lessons_on_user_id_and_created_at"
   add_index "lessons", ["user_id"], name: "index_lessons_on_user_id"
 
@@ -57,15 +59,15 @@ ActiveRecord::Schema.define(version: 20161202091321) do
     t.integer  "word_id"
     t.integer  "lesson_id"
     t.integer  "answer_id"
-    t.boolean  "is_correct", default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "questions", ["answer_id"], name: "index_questions_on_answer_id"
-  add_index "questions", ["is_correct"], name: "index_questions_on_is_correct"
   add_index "questions", ["lesson_id", "word_id"], name: "index_questions_on_lesson_id_and_word_id"
   add_index "questions", ["lesson_id"], name: "index_questions_on_lesson_id"
+  add_index "questions", ["user_id"], name: "index_questions_on_user_id"
   add_index "questions", ["word_id"], name: "index_questions_on_word_id"
 
   create_table "relationships", force: :cascade do |t|

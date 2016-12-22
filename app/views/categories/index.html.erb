@@ -17,15 +17,18 @@
       <tr>
         <th>Category Name</th>
         <th>Discription</th>
-
       </tr>
     </thead>
     <tbody>
       <% @categories.each do |category| %>
-
       <tr>
         <td><%= link_to category.name, category %></td>
         <td><%= category.discription %></td>
+        <td>
+          <%= form_for [category, @lesson] do |f| %>
+            <%= f.submit "Start", class: "btn btn-primary btn-sm" %>
+          <% end %>
+        </td>
         <% if current_user.admin? %>
         <td><%= link_to "Edit", edit_category_path(category) %></td>
         <td><%= link_to "Delete", category, method: :delete,
