@@ -1,5 +1,4 @@
 class Question < ActiveRecord::Base
-  self.per_page = 1
   belongs_to :word
   belongs_to :lesson
   belongs_to :user
