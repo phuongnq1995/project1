@@ -4,10 +4,11 @@ class LessonsController < ApplicationController
   before_action :load_category, only: [:edit, :update, :create]
 
   def create
+    current_user = User.find_by id: params[:user_id]
     @lesson = @category.lessons.build user: current_user
     if @lesson.save
       flash[:success] = "Started lesson"
-      redirect_to edit_category_lesson_path(@category.id, @lesson)
+      redirect_to edit_category_lesson_path(@lesson.category, @lesson)
     else
       flash[:danger] = "Fail message"
       redirect_to categories_path
@@ -18,7 +19,7 @@ class LessonsController < ApplicationController
   end
 
   def update
-    if @lesson.update_attributes(questions_params)
+    if @lesson.update_attributes questions_params
       flash[:success] = "Finish"
       redirect_to category_lesson_path(@lesson.category, @lesson)
     else
@@ -53,6 +54,5 @@ class LessonsController < ApplicationController
     params.require(:lesson).permit :category_id,
       questions_attributes: [:id, :answer_id]
   end
-
 end
 

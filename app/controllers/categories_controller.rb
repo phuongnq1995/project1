@@ -1,6 +1,7 @@
 class CategoriesController < ApplicationController
   before_action :admin_user, only: [:create, :edit, :update, :destroy]
   before_action :logged_in_user, only: :index
+  before_action :load_category, only: [:edit, :update, :show, :destroy]
 
   def index
     @categories = Category.paginate(page: params[:page])
@@ -9,8 +10,9 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:id])
     @words = @category.words.paginate(page: params[:page])
+    @word = @category.words.build
+    4.times {@word.answers.build}
   end
 
   def create
@@ -24,13 +26,11 @@ class CategoriesController < ApplicationController
   end
 
   def edit
-    @category = Category.find(params[:id])
   end
 
   def update
-    @category = Category.find(params[:id])
     if @category.update_attributes(category_params)
-      flash[:success] = "Profile updated !"
+      flash[:success] = "Category updated !"
       redirect_to categories_path
     else
       render 'edit'
@@ -38,7 +38,7 @@ class CategoriesController < ApplicationController
   end
 
   def destroy
-    Category.find(params[:id]).destroy
+    @category.destroy
     flash[:success] = "Category deleted !"
     redirect_to categories_path
   end
@@ -53,4 +53,11 @@ class CategoriesController < ApplicationController
     redirect_to(root_url) unless current_user.admin?
   end
 
+  def load_category
+    @category = Category.find(params[:id])
+    unless @category
+      flash[:danger] = "Can't load category"
+      redirect_to categories_path
+    end
+  end
 end

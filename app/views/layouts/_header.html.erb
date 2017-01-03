@@ -1,10 +1,14 @@
 <header class="main-header">
-    <a href="/" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
+    <%= link_to root_path, class: "logo" do %>
       <span class="logo-mini"><b>E</b></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>E-LEARNING</b></span>
-    </a>
+    <% end %>
+
+<!--     <a href="/" class="logo">
+      <span class="logo-mini"><b>E</b></span>
+      <span class="logo-lg"><b>E-LEARNING</b></span>
+    </a>  -->
 
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -36,14 +40,19 @@
               <li class="user-body">
                 <div class="row">
                   <div class="col-xs-4 text-center">
-                    <a href="<%= followers_user_path(current_user) %>">Followers</a>
+                    <a href="<%= followers_user_path(current_user) %>">Followers
+                    <%= current_user.followers.count %>
+                    </a>
                   </div>
                   <div class="col-xs-4 text-center">
                     <a href="<%= following_user_path(current_user) %>">Following
+                    <%= current_user.following.count %>
                     </a>
                   </div>
                 </div>
-                <!-- /.row -->
+              <!-- /.row -->
+              </li>
+              <li><%= link_to "Profile", current_user, class: "btn btn-default btn-flat" %>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">

@@ -1,26 +1,38 @@
 <% provide(:title, 'All word') %>
 <% if current_user.admin? %>
-  <%= link_to "new word", new_category_word_path(@category, @word) %>
+  <%= form_for @word do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+    <div class="field">
+      <%= hidden_field_tag :category_id, @category.id %>
+      <%= f.label :content %>
+      <%= f.text_field :content, class: 'form-control' %>
+    </div>
+    <%= f.fields_for :answers do |builder| %>
+        <%= render 'answer_fields', :f => builder %>
+    <% end %>
+    <p><%= link_to_add_fields "Add Answer", f, :answers %></p>
+  <%= f.submit "Create", class: "btn btn-primary" %>
+  <% end %>
 <% end %>
+    <div class="panel panel-primary">
+      <div class="panel-heading"><%= @category.name %></div>
+      <div class="panel-body"><%= @category.discription %></div>
+    </div>
   <div class="col-md-8">
     <% if @category.words.any? %>
     <h2>All words(<%= @category.words.count %>)</h2>
-
       <ul class="word">
         <% @words.each do |word| %>
         <li id="word-<%= word.id %>">
-
-          <%= link_to word.content , category_word_path(word.category, word) %>
+          <%= word.content %>
           <% if current_user.admin? %>
-            <%= link_to "Edit", edit_category_word_path(word.category, word) %>
-            <%= link_to "Delete", [word.category ,word], method: :delete,
+            <%= link_to "Edit", edit_word_path(word) %>
+            <%= link_to "Delete", word, method: :delete,
                                       data: { confirm: "You sure?" } %>
           <% end %>
-
         </li>
         <% end %>
       </ul>
-
     <% end %>
   </div>
 

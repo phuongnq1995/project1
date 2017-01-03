@@ -1,42 +1,35 @@
 <% provide(:title, 'All Category') %>
-<h1>All category</h1>
+<div class="row">
 <% if current_user.admin? %>
   <%= form_for(@category) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
-    <div class="field">
+    <div class="col-md-7 field">
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>
-      <%= f.text_area :discription, placeholder: "discription..." %>
+      <%= f.text_area :discription, class: 'form-control', placeholder: "discription..." %>
     </div>
-    <%= f.submit "Create", class: "btn btn-primary" %>
+    <%= f.submit "Create", class: "btn btn-primary pull-down" %>
   <% end %>
 <% end %>
-<%= will_paginate %>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Category Name</th>
-        <th>Discription</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @categories.each do |category| %>
-      <tr>
-        <td><%= link_to category.name, category %></td>
-        <td><%= category.discription %></td>
-        <td>
-          <%= form_for [category, @lesson] do |f| %>
-            <%= f.submit "Start", class: "btn btn-primary btn-sm" %>
-          <% end %>
-        </td>
-        <% if current_user.admin? %>
-        <td><%= link_to "Edit", edit_category_path(category) %></td>
-        <td><%= link_to "Delete", category, method: :delete,
-                                  data: { confirm: "You sure?" } %></td>
-         <% end %>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
 </div>
+<h1>All category</h1>
+<%= will_paginate %>
+    <% @categories.each do |category| %>
+    <div class="panel panel-success">
+        <% if current_user.admin? %>
+        <%= link_to "Delete", category, method: :delete,
+          data: { confirm: "You sure?" }, class: "btn btn-danger btn-sm pull-right"
+           %>
+        <%= link_to "Edit", edit_category_path(category), class: "btn btn-warning btn-sm pull-right" %>
+         <% end %>
+        <%= form_for [category, @lesson] do |f| %>
+          <%= hidden_field_tag :user_id, current_user.id %>
+          <%= f.submit "Start", class: "btn btn-info btn-sm pull-right" %>
+        <% end %>
+      <div class="panel-heading">
+      <%= link_to category.name, category_path(category) %>
+      </div>
+      <div class="panel-body"><%= category.discription %></div>
+    </div>
+    <% end %>
 <%= will_paginate %>

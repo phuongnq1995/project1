@@ -1,6 +1,7 @@
 class WordsController < ApplicationController
   before_action :admin_user, only: [:create, :edit, :update, :destroy]
   before_action :logged_in_user, only: :index
+  before_action :load_category, only: :create
 
   def index
     @categories = Category.all
@@ -9,50 +10,37 @@ class WordsController < ApplicationController
              .paginate page: params[:page]
   end
 
-  def new
-    @category = Category.find(params[:category_id])
-    @word = @category.words.build
-    4.times { @word.answers.build}
-  end
-
-  def show
-    @category = Category.find(params[:category_id])
-    @word = @category.words.find(params[:id])
-  end
-
   def create
-    @category = Category.find(params[:category_id])
     @word = @category.words.build(word_params)
     if @word.save
       flash[:success] = "Create success !"
       redirect_to @category
     else
-      render 'new'
+      flash[:danger] = "Create fail !"
+      redirect_to @word.category
     end
   end
 
   def edit
-    @category = Category.find(params[:category_id])
-    @word = @category.words.find(params[:id])
+    @word = Word.find(params[:id])
   end
 
   def update
-    @category = Category.find(params[:category_id])
-    @word = @category.words.find(params[:id])
+    @word = Word.find(params[:id])
     if @word.update_attributes(word_params)
       flash[:success] = "Updated success !"
-      redirect_to @category
+      redirect_to @word.category
     else
+      flash[:danger] = "Updated fail !"
       render 'edit'
     end
   end
 
   def destroy
-    @category = Category.find(params[:category_id])
     @word = Word.find(params[:id])
     @word.destroy
     flash[:success] = "Word deleted !"
-    redirect_to @category
+    redirect_to @word.category
   end
 
   private
@@ -60,13 +48,20 @@ class WordsController < ApplicationController
   def word_params
     params.require(:word).permit(:content, answers_attributes: [:id, :content, :is_correct])
   end
-    # Confirms an admin user.
+  # Confirms an admin user.
   def admin_user
     redirect_to(root_url) unless current_user.admin?
+  end
+
+  def load_category
+    @category = Category.find_by id: params[:category_id]
+    unless @category
+      flash[:danger] = t "error_load"
+      redirect_to categories_url
+    end
   end
 
   def category_id
     params[:category_id].blank? ? @categories.map(&:id) : params[:category_id]
   end
-
 end

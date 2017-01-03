@@ -24,11 +24,6 @@ Category.create!(name:  "Loai1",
                discription: discription)
 end
 
-categorys = Category.order(:created_at).take(6)
-5.times do
-  content = Faker::Name.name
-  categorys.each { |category| category.words.create!(content: content) }
-end
 # Following relationships
 users = User.all
 user  = users.first
