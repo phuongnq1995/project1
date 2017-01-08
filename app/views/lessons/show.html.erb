@@ -1,10 +1,10 @@
 <% provide(:title, 'Lesson') %>
-<h2>Lesson finish</h2>
+<h2><%= t "lesson_finish" %></h2>
 <div class="col-md-12" id="customer-order">
   <div class="box">
       <h2><%= t "result" %>&nbsp;
         <span class="text-danger">
-          <%= @score %>/<%= @lesson.category.words.count %>
+          <%= @score %>/<%= @lesson.questions.count %>
         </span>
       </h2>
     <hr>
@@ -21,7 +21,7 @@
         <tbody>
           <% @results.each_with_index do |result, index| %>
             <tr>
-              <td><%= index + 1 %></td>
+              <td><%= index_of_result index %></td>
               <td><%= result.word.content %></td>
               <td>
                 <% if result.answer %>

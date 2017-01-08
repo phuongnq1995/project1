@@ -19,7 +19,7 @@ Category.create!(name:  "Loai1",
 
 9.times do |n|
   name  = Faker::Name.name
-  discription = "new-#{n+1}@gmail.org"
+  discription = Faker::Lorem.sentence(5)
   Category.create!(name:  name,
                discription: discription)
 end

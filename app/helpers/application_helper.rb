@@ -20,4 +20,20 @@ module ApplicationHelper
     end
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end
+
+  def index_of_result index
+    index +1
+  end
+
+  def activity_of_action activity
+    case activity.action
+    when "start"
+      link_to Category.find(activity.target_id).name,
+        Category.find(activity.target_id)
+    when "learned"
+      "word: " + Word.find(activity.target_id).content
+    else
+      link_to User.find(activity.target_id).name, User.find(activity.target_id)
+    end
+  end
 end

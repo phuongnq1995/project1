@@ -10,19 +10,6 @@ en:
   home: "Home"
   sign_up: "Sign Up"
   log_in: "Log In"
-  views:
-    pagination:
-      first: "&laquo; First"
-      last: "Last &raquo;"
-      previous: "&lsaquo; Prev"
-      next: "Next &rsaquo;"
-      truncate: "&hellip;"
-  helpers:
-    page_entries_info:
-      one_page:
-        display_entries:
-          zero: "No %{entry_name} found"
-          one: "Displaying <b>1</b> %{entry_name}"
-          other: "Displaying <b>all %{count}</b> %{entry_name}"
-      more_pages:
-        display_entries: "Displaying %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> of <b>%{total}</b> in total"
+  finish: "Finish"
+  You_sure: "You sure?"
+  were_finished: "You were finished this category !"

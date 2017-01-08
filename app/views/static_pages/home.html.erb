@@ -1,4 +1,4 @@
-<div class="center jumbotron">
-  <h1><%= t "activities" %></h1>
-
-</div>
+<h1><%= t "activities" %></h1>
+<div class="row">
+<%= render @activity %>
+<%= will_paginate @activity %>

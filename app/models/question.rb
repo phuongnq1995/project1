@@ -7,8 +7,8 @@ class Question < ActiveRecord::Base
   scope :correct_anwsers, -> do
     joins(:answer).where("answers.is_correct = ?", true)
   end
-
-  scope :answer_false, -> do
+  scope :fail_answers, -> do
     joins(:answer).where("answers.is_correct = ?", false)
   end
+  scope :null_answers, -> {where(answer: nil)}
 end

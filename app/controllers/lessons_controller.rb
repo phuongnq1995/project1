@@ -2,15 +2,15 @@ class LessonsController < ApplicationController
   before_action :logged_in_user
   before_action :load_lesson, only: [:edit, :update, :show]
   before_action :load_category, only: [:edit, :update, :create]
+  after_action :delete_answer_false, only: :show
 
   def create
-    current_user = User.find_by id: params[:user_id]
     @lesson = @category.lessons.build user: current_user
-    if @lesson.save
+    if @lesson.save && @lesson.words.any?
       flash[:success] = "Started lesson"
       redirect_to edit_category_lesson_path(@lesson.category, @lesson)
     else
-      flash[:danger] = "Fail message"
+      flash[:danger] = t "were_finished"
       redirect_to categories_path
     end
   end
@@ -53,6 +53,15 @@ class LessonsController < ApplicationController
   def questions_params
     params.require(:lesson).permit :category_id,
       questions_attributes: [:id, :answer_id]
+  end
+
+  def delete_answer_false
+    Question.fail_answers.delete_all
+    Question.null_answers.delete_all
+    @lesson.questions.correct_anwsers.each do |question|
+      Activity.create user: question.user, target_id: question.word.id,
+        action: "learned"
+    end
   end
 end
 

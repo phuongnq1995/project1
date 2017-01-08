@@ -1,6 +1,6 @@
 <div id="question">
     <strong class="row">
-    Question <%=  %>: <%= f.object.word.content %>
+     <%= t "Question: " %><%= f.object.word.content %>
     </strong>
     <div class="row">
     <% f.object.word.answers.each do |answer| %>

@@ -8,33 +8,24 @@
       <%= f.text_field :content, class: 'form-control' %>
     </div>
     <%= f.fields_for :answers do |builder| %>
-        <%= render 'answer_fields', :f => builder %>
+        <%= render "answer_fields", :f => builder %>
     <% end %>
-    <p><%= link_to_add_fields "Add Answer", f, :answers %></p>
+    <p><%= link_to_add_fields t("add_answer"), f, :answers %></p>
   <%= f.submit "Create", class: "btn btn-primary" %>
   <% end %>
 <% end %>
-    <div class="panel panel-primary">
-      <div class="panel-heading"><%= @category.name %></div>
-      <div class="panel-body"><%= @category.discription %></div>
-    </div>
-  <div class="col-md-8">
-    <% if @category.words.any? %>
-    <h2>All words(<%= @category.words.count %>)</h2>
-      <ul class="word">
-        <% @words.each do |word| %>
-        <li id="word-<%= word.id %>">
-          <%= word.content %>
-          <% if current_user.admin? %>
-            <%= link_to "Edit", edit_word_path(word) %>
-            <%= link_to "Delete", word, method: :delete,
-                                      data: { confirm: "You sure?" } %>
-          <% end %>
-        </li>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
-
+<div class="panel panel-primary">
+  <div class="panel-heading"><%= @category.name %></div>
+  <div class="panel-body"><%= @category.discription %></div>
+</div>
+<div class="col-sm-8">
+  <% if @category.words.any? %>
+    <h3><%= t "Word" %>(<%= @category.words.length %>)</h3>
+    <ol class="panel panel-success">
+      <%= render @words %>
+    </ol>
+    <%= will_paginate @words %>
+  <% end %>
+</div>
 
 

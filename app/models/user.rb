@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :lessons, dependent: :destroy
   has_many :questions
-  # has_many :activities, dependent: :destroy
+  has_many :activities, dependent: :destroy
   has_many :active_relationships, class_name: Relationship.name,
     foreign_key: :follower_id, dependent: :destroy
   has_many :passive_relationships, class_name: Relationship.name,
@@ -35,5 +35,12 @@ class User < ActiveRecord::Base
   # Returns true if the current user is following the other user.
   def following?(other_user)
     following.include?(other_user)
+  end
+
+  def feed
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    Activity.where("user_id IN (#{following_ids})
+                     OR user_id = :user_id", user_id: id)
   end
 end

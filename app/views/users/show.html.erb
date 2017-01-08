@@ -15,3 +15,9 @@
     <%= render 'follow_form' if logged_in? %>
   </div>
 </div>
+<br>
+<% if logged_in? %>
+  <div class="row">
+  <%= render @activity %>
+  <%= will_paginate @activity %>
+<% end %>

@@ -60,7 +60,6 @@ class WordsController < ApplicationController
       redirect_to categories_url
     end
   end
-
   def category_id
     params[:category_id].blank? ? @categories.map(&:id) : params[:category_id]
   end

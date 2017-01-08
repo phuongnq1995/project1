@@ -1,0 +1,9 @@
+<li id="<%= activity.id %>">
+  <%= link_to gravatar_for(activity.user, size: 50), activity.user %>
+  <span class="user"><%= link_to activity.user.name, activity.user %> were
+  <%= activity.action %>
+    <%= activity_of_action activity %>
+  </span>
+    about <%= time_ago_in_words(activity.created_at) %> ago.
+</li>
+<br>
