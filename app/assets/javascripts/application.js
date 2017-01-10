@@ -16,5 +16,6 @@
 //= require_bootstrap-toggle
 //= require turbolinks
 //= require select
-//= require_tree .
-//= require select
+//= require_tree
+//= stub autosubmit
+//= require application_jquery

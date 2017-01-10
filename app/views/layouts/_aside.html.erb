@@ -14,6 +14,11 @@
       <!-- /.search form -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
+        <li>
+          <%= link_to root_path do %>
+            <i class="fa fa-edit"></i> <span>Home</span>
+          <% end %>
+        </li>
         <li class="treeview">
             <%= link_to categories_path do %>
             <i class="fa fa-files-o"></i>

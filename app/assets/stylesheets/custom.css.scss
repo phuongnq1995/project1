@@ -96,6 +96,15 @@ body {
   color: #444;
   border-top: 1px solid #d2d6de;
 }
+/* Top right */
+
+.topright {
+    position: absolute;
+    top: 45px;
+    right: 16px;
+    font-size: 18px;
+}
+
 /* Fixed layout */
 .fixed .main-header,
 .fixed .main-sidebar,

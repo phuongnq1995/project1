@@ -36,4 +36,8 @@ module ApplicationHelper
       link_to User.find(activity.target_id).name, User.find(activity.target_id)
     end
   end
+
+  def time_of_lesson lesson
+    lesson.questions.size * 20
+  end
 end
