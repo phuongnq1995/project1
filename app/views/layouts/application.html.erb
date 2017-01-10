@@ -17,12 +17,15 @@
       <div class="content-wrapper">
         <div class="content">
         <% flash.each do |message_type, message| %>
-          <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+          <div class="row">
+          <%= content_tag(:div, message, class: "col-sm-6 alert alert-#{message_type}") %>
+          </div>
         <% end %>
         <%= yield %>
         </div>
       </div>
     <%= render "layouts/footer" %>
   </div>
+  <%= javascript_include_tag "autosubmit" %>
 </body>
 </html>
