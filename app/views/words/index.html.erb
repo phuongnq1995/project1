@@ -13,7 +13,7 @@
         <% Settings.option.each do |condition| %>
           <li>
               <%= radio_button_tag :condition, condition,
-                (checked = true if params[:condition] == condition) %>
+                (checked = true) %>
               <%= t "word.#{condition}" %>
           </li>
         <% end %>

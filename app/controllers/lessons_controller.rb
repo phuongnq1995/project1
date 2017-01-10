@@ -2,6 +2,7 @@ class LessonsController < ApplicationController
   before_action :logged_in_user
   before_action :load_lesson, only: [:edit, :update, :show]
   before_action :load_category, only: [:edit, :update, :create]
+  after_action :learned_words, only: :show
   after_action :delete_answer_false, only: :show
 
   def create
@@ -58,6 +59,9 @@ class LessonsController < ApplicationController
   def delete_answer_false
     Question.fail_answers.delete_all
     Question.null_answers.delete_all
+  end
+
+  def learned_words
     @lesson.questions.correct_anwsers.each do |question|
       Activity.create user: question.user, target_id: question.word.id,
         action: "learned"
